@@ -2,7 +2,6 @@
 use \Firebase\JWT\JWT;
 session_set_cookie_params(3600);
 session_start();
-echo "sei dentro";
 $connection = mysqli_connect("localhost" , "darkness" , "", "my_darkness");
 
 $userName = $_POST["userName"];

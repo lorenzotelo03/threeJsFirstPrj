@@ -67,7 +67,8 @@ if(isset($_GET['code'],$_GET['state'])){
             echo "cURL Error #:" . $err;
         } else {
             $user = json_decode($response);
-            echo "benvenuto ".$user->{'cognome'}." ".$user->{'nome'}."<br>";
+            include "index.html";
+            //echo "benvenuto ".$user->{'cognome'}." ".$user->{'nome'}."<br>";
         }
     }
 

@@ -93,3 +93,16 @@ const jGeo = new THREE.SphereGeometry(3 , 32 , 32);
 const jupiter = new THREE.Mesh(jGeo, jMat);
 
 scene.add(jupiter)
+//jupiter
+const juTexture2 = new THREE.TextureLoader().load('giove.jpg');
+const normalTexture2 = new THREE.TextureLoader().load('normal.jpg')
+const jMat2 = new THREE.MeshStandardMaterial( 
+  { 
+    map: juTexture2,
+    normalMap: normalTexture2
+  }
+)
+const jGeo2 = new THREE.SphereGeometry(99 , 66 , 32);
+const jupiter2 = new THREE.Mesh(jGeo2, jMat2);
+
+scene.add(jupiter2)

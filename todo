@@ -1,0 +1,40 @@
+introduzione: docker utilizzato per semplificare il deploy
+
+npm:
+  1: 
+    installa npm: fatto
+  2: 
+    installa vite: fatto (npm install vite)
+  3: 
+    cambia il package-log.json: copia del vecchio (fatto)
+  4:
+    runna come build: npm run build
+  5: 
+    controlla la preview: npm run preview
+  6: 
+    runna il tutto in un docker: npm run dev
+
+db dockerizzato:
+  1:
+    installa immagine del db (mysql)
+  2: 
+    setta le envs
+  3: 
+    importa l'sql da altervista
+  4:
+    runna il docker
+
+php:
+  1:
+    setta la connessione al db docker
+  2:
+    metti il tutto in un docker
+  3:
+    runna il docker
+
+docker-compose:
+  1:
+    setta tutti i docker nel docker-compose file
+  2: 
+    runna e good to go: docker-compose up --build -d
+

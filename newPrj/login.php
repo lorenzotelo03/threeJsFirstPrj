@@ -2,7 +2,13 @@
 use \Firebase\JWT\JWT;
 session_set_cookie_params(3600);
 session_start();
-$connection = mysqli_connect("localhost" , "darkness" , "", "my_darkness");
+// $connection = mysqli_connect("localhost" , "root" , "root", "db");
+try {
+    $db = new PDO('mysql:host=localhost;dbname=db', 'root', 'root');
+} catch (PDOException $e) {
+    print "Error!: " . $e->getMessage() . "<br/>";
+    die();
+}
 
 $userName = $_POST["userName"];
 $password = hash("SHA256",$_POST["password"]);
@@ -10,8 +16,7 @@ $password = hash("SHA256",$_POST["password"]);
 echo $userName . "<br>".$password;
 
 $query = "SELECT * FROM `Utenti` WHERE UserName='$userName' and uPassword ='".$password."'";
-$result = mysqli_query($connection,$query);
-if(mysqli_num_rows($result) > 0){
+foreach ($db->query($sql) as $row) {
     echo "sei dentro";
     if(isset($_POST["remeberMe"])){
         include_once 'php-jwt-master/src/BeforeValidException.php';
@@ -49,7 +54,8 @@ if(mysqli_num_rows($result) > 0){
         $_SESSION["userName"] = $userName;
     }
     header("Location: main.php");
-}else{
-    echo "dio ca";
+    die();
 }
+echo "dio ca";
+
 ?>

@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+    db:
+      image: mariadb:10.2
+      restart: always
+      environment:
+        MYSQL_DATABASE: db
+        MYSQL_USER: lore
+        MYSQL_PASSWORD: lore
+        MYSQL_ROOT_PASSWORD: root
+      ports:
+        - "3306"
+      command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+      # expose:
+      #   - 3306
+      volumes:
+        - ./db-dump:/var/lib/mysql
+      networks:
+        - "portfolio"
+
+volumes:
+  mariadb:
+
+networks:
+  portfolio:

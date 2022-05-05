@@ -1,14 +1,16 @@
 version: "3.2"
 services:
     nodejs:
-      image: ciao/threejsfirstprj
+      build:
+        context: .
+        dockerfile: Dockerfile
       depends_on:
         - mysql
       environment:
-        MYSQL_DATABASE: db
-        MYSQL_USER: lore
-        MYSQL_PASSWORD: lore
-        MYSQL_ROOT_PASSWORD: root
+        MYSQL_HOST: mysql
+        MYSQL_USER: root
+        MYSQL_PASSWORD: root
+        MYSQL_PORT: 3306
       volumes:
         - ./www/:/var/www/html
       ports:
@@ -37,7 +39,7 @@ services:
       ports:
         - 30002:80
       environment:
-        - PMA_HOST=node-app
+        - PMA_HOST=mysql
         - PMA_PASSWORD=root
         - PMA_PORT_3306
       volumes:

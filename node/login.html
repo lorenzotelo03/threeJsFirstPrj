@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .remberMe {
+            display: flex;
+            align-items: center;
+            margin-left: 50%;
+        }
+        input[type=checkbox] {
+            width: 13px;
+            height: 13px;
+            padding: 0;
+            margin:0;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-page">
+        <div class="form">
+          <form class="login-form" action="login.php" method="post" enctype="multipart/form-data">
+            <input name="userName" type="text" placeholder="username"/>
+            <input name="password" type="password" placeholder="password"/>
+            <input type="submit" name="submit" value="login">
+            <center>
+                <label class = "remberMe" for="remeberMe">
+                    <input type="checkbox" id = "remeberMe" name="remeberMe"/>Vuoi essere ricordato ?
+                </label>
+            </center>
+
+            <p class="message">Accedi con l'account scolastico con: <a href="index.php">PaleoID</a></p>
+            <p class="message">Passowrd dimenticata? <a href="changePass.html">clicca qui per cambiarla</a></p>
+            <p class="message">Non registrato? <a href="registration.html">Crea un account</a></p>
+          </form>
+        </div>
+      </div>
+</body>
+</html>

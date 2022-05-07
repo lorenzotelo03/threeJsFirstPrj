@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="StyleLog.css">
     <style>
         .remberMe {
             display: flex;
@@ -22,7 +22,7 @@
 <body>
     <div class="login-page">
         <div class="form">
-          <form class="login-form" action="login.php" method="post" enctype="multipart/form-data">
+          <form class="login-form" href="/" method="POST">   
             <input name="userName" type="text" placeholder="username"/>
             <input name="password" type="password" placeholder="password"/>
             <input type="submit" name="submit" value="login">
@@ -32,9 +32,9 @@
                 </label>
             </center>
 
-            <p class="message">Accedi con l'account scolastico con: <a href="index.php">PaleoID</a></p>
-            <p class="message">Passowrd dimenticata? <a href="changePass.html">clicca qui per cambiarla</a></p>
-            <p class="message">Non registrato? <a href="registration.html">Crea un account</a></p>
+            <!-- <p class="message">Accedi con l'account scolastico con: <a href="index.php">PaleoID</a></p> -->
+            <p class="message">Passowrd dimenticata? <a href="/changePass">clicca qui per cambiarla</a></p>
+            <p class="message">Non registrato? <a href="/Registration">Crea un account</a></p>
           </form>
         </div>
       </div>

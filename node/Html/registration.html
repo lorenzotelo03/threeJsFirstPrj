@@ -9,10 +9,10 @@
 <body>
     <div class="login-page">
         <div class="form">
-            <form class="login-form" action="registration.php" method="post" enctype="multipart/form-data">
-                <input name="email" type="text" placeholder="email"/>
-                <input name="userName" type="text" placeholder="username"/>
-                <input name="password" type="password" placeholder="password"/>
+            <form class="login-form" href="/Rform" action="/regi" method="POST">
+                <input name="email" id="email" type="text" placeholder="email" required/>
+                <input name="username" id="username" type="text" placeholder="username" required/>
+                <input name="password" id="password" type="password" placeholder="password" required/>
                 <input type="submit" name="submit" value="continue">
                 <p class="message">Già registrato? <a href="login.html">Sign In</a></p>
             </form>

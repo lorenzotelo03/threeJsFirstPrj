@@ -3,9 +3,11 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const session = require('express-session');
+var bodyParser = require('body-parser');
 const mysql = require('mysql');
 const fs = require('fs');
 const bcrypt = require('bcrypt');//for hash algorithm
+var nodemailer = require('nodemailer');//to send emails
 const router = express.Router();
 
 // var { body, validationResult } = require('express-validator');
@@ -49,15 +51,24 @@ var connection = mysql.createConnection(connectionOptions);
 //     res.status(200).send("request succeeded")
 // });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 //crea una sessione
 app.use(session({
 	secret: 'secret',
 	resave: true,
 	saveUninitialized: true
 }));
-
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: '3dSpaceTeam@gmail.com',
+      pass: '3dSpaceTeam'
+    }
+});
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '/Html/login.html'));
     //__dirname : It will resolve to your project folder.
@@ -158,7 +169,44 @@ app.post('/regi',function(req,res){ //sing in function
   }
 });
 
+app.post('/chPas',function(req,res){
+  console.log("we're in");
+  let email = req.body.email;
+  let isValid = false;
+  console.log(email);
+  connection.query("SELECT Email FROM `Utenti`" , function(error, results, fields){ 
+    console.log("we're in the query");
+    if (error) {
+          console.log(error);
+          res.sendStatus(500);
+          return;
+    }else{
+      Object.keys(results).forEach(function(key){
+          let row = results[key];
+          console.log(row.Email);
+          if(row.Email == email){
+            isValid = true;
+          }
+      });
+      if(isValid){
+        let mailOptions = {
+          from: '3dSpaceTeam@gmail.com',
+          to: email,
+          subject: 'Password reset',
+          html: '<p>Click <a href="https://8005-lorenzotelo-threejsfirs-yftserqua8e.ws-eu45.gitpod.io/">here</a> to reset your password</p>'
+        }
 
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+      }
+    }
+  });
+});
 app.use(express.static(__dirname + '/Html'));
 app.use('/', router);
 app.listen(port);

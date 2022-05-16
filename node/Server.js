@@ -30,38 +30,6 @@ var connectionOptions = {
 console.log('MySQL connection config:');
 console.log(connectionOptions);
 var connection = mysql.createConnection(connectionOptions);
-// app.get('/',function(req,res){
-    
-//     connection.connect();
-//     /*
-//     *connection.query(qua scrivi la query){
-//         if(error)throw error;
-
-//        ? responseStr = '';
-//         results.forEach(function(data){
-//             .....
-//         });
-//        * if(responseStr.lenght == 0) response = "no records found";
-//         console.log(responseStr);
-
-//         res.status(200).send(responseùStr)
-//     };
-//     */
-//     connection.end();
-//     res.status(200).send("request succeeded")
-// });
-
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-//crea una sessione
-app.use(session({
-	secret: 'secret',
-	resave: true,
-	saveUninitialized: true
-}));
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -69,9 +37,25 @@ var transporter = nodemailer.createTransport({
       pass: '3dSpaceTeam'
     }
 });
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+//crea una sessione
+app.use(session({
+	secret: 'secret',
+	resave: false,
+	saveUninitialized: false
+}));
+
 app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, '/Html/home.html'));
+    //__dirname : It will resolve to your project folder.
+});
+app.get('/login', function(req, res) {
   res.sendFile(path.join(__dirname, '/Html/login.html'));
     //__dirname : It will resolve to your project folder.
+});
+app.get('/3dWorkSpace', function(req, res) {
+  res.sendFile(path.join(__dirname, '/Html/index.html'));
 });
 
 router.get('/changePass',function(req,res){
@@ -81,6 +65,7 @@ router.get('/changePass',function(req,res){
 router.get('/Registration',function(req,res){
   res.sendFile(path.join(__dirname+'/Html/registration.html'));
 });
+
 
 
 app.post('/auth',function(req,res){ //login function
@@ -108,12 +93,11 @@ app.post('/auth',function(req,res){ //login function
 
             if(results.length > 0){
               req.session.loggedIn = true;
-              req.session.username = username;
-              res.sendStatus(200);
-              // res.redirect('/home');
-              res.send("you're in congrats");
+              req.session.username = username;             
+              return res.redirect('/3dWorkSpace');
+              //res.send("you're in congrats");
             }else{
-              res.send("something went wrong, incorrect USername and/or Password");
+              res.send("something went wrong, incorrect Username and/or Password");
             }
           res.end();
         });
@@ -170,7 +154,6 @@ app.post('/regi',function(req,res){ //sing in function
 });
 
 app.post('/chPas',function(req,res){
-  console.log("we're in");
   let email = req.body.email;
   let isValid = false;
   console.log(email);
@@ -186,6 +169,46 @@ app.post('/chPas',function(req,res){
           console.log(row.Email);
           if(row.Email == email){
             isValid = true;
+            return true;
+          }
+      });
+      if(isValid){
+        let mailOptions = {
+          from: '3dSpaceTeam@gmail.com',
+          to: email,
+          subject: 'Password reset',
+          html: '<p>Click <a href="https://8005-lorenzotelo-threejsfirs-yftserqua8e.ws-eu45.gitpod.io/">here</a> to reset your password</p>'
+        }
+
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+      }
+    }
+  });
+});
+
+app.post('/chPas',function(req,res){
+  let email = req.body.email;
+  let isValid = false;
+  console.log(email);
+  connection.query("SELECT Email FROM `Utenti`" , function(error, results, fields){ 
+    console.log("we're in the query");
+    if (error) {
+          console.log(error);
+          res.sendStatus(500);
+          return;
+    }else{
+      Object.keys(results).forEach(function(key){
+          let row = results[key];
+          console.log(row.Email);
+          if(row.Email == email){
+            isValid = true;
+            return true;
           }
       });
       if(isValid){

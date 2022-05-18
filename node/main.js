@@ -1,9 +1,9 @@
-import './style.css'
+import '/style.css'
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { AmbientLightProbe } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-
+//! per modificare porta vite  --port 8005 nell pacakge.json
 //setup
 const scene = new THREE.Scene();
 //serve per dare tutte le ionformazioni necessarie per la view della camera
@@ -81,7 +81,7 @@ scene.add(jupiter);
 jupiter.position.z = 30;
 jupiter.position.setX(-10);
 
-//animazione di scroll 
+// //animazione di scroll 
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top; //ritorna le dimenzione del pov, con la propità top ci dirà con esattezza dove quanto siamo distanti dal lato superiore della pagina
   jupiter.rotation.x += 0.05;
@@ -94,6 +94,19 @@ function moveCamera() {
 }
 
 document.body.onscroll = moveCamera; //event handler per l'evento di scroll della pagina
+//-----------caricare modello------------------\\
+// const loader = new GLTFLoader();
+
+// loader.load( 'path/to/model.glb', function ( gltf ) {
+//   scene.add( gltf.scene );
+
+// }, undefined, function ( error ) {
+
+// 	console.error( error );
+
+// } );
+
+
 
 //-----------Loop animazione-------------------\\
 function animate(){

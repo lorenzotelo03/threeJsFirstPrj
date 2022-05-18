@@ -5,7 +5,7 @@
   "main": "Server.js",
   "scripts": {
     "start": "node Server.js",
-    "dev": "vite --port 8005",
+    "dev": "vite", 
     "build": "vite build",
     "preview": "vite preview"
   },

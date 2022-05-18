@@ -63,13 +63,13 @@ app.get('/', function(req, res) {
     //__dirname : It will resolve to your project folder.
 });
 
-app.get('/login', function(req, res) {
+router.get('/login', function(req, res) {
   res.sendFile(path.join(__dirname, '/Html/login.html'));
     //__dirname : It will resolve to your project folder.
 });
 
-app.get('/3dWorkSpace', function(req, res) {
-  res.sendFile(path.join(__dirname, '/3dWorkSpace.html'));
+router.get('/3dWorkSpace', function(req, res) {
+  res.sendFile(path.join(__dirname, '/index.html'));
 });
 
 router.get('/changePass',function(req,res){
